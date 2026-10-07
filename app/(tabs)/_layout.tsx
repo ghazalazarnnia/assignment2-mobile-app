@@ -6,8 +6,12 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#000",
-        tabBarInactiveTintColor: "#777",
+        tabBarActiveTintColor: "#f5f5f7",
+        tabBarInactiveTintColor: "#85878e",
+        tabBarStyle: {
+          backgroundColor: "#090a0d",
+          borderTopColor: "#26282e",
+        },
       }}
     >
       <Tabs.Screen
@@ -23,9 +27,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="screen2"
         options={{
-          title: "Search",
+          title: "Messages",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search-outline" size={size} color={color} />
+            <Ionicons name="paper-plane" size={size} color={color} />
           ),
         }}
       />
