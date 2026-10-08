@@ -1,172 +1,256 @@
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+
+import React, { useState } from "react";
 import {
-  Pressable,
+  View,
+  Text,
+  Image,
   ScrollView,
   StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+  TouchableOpacity,
+  Alert,
+  useWindowDimensions,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+
+const stories = [
+  {
+    id: "1",
+    name: "Kim",
+    image: require("../../assets/images/kim.jpg"),
+  },
+  {
+    id: "2",
+    name: "Khloé",
+    image: require("../../assets/images/khloe.jpg"),
+  },
+  {
+    id: "3",
+    name: "Kylie",
+    image: require("../../assets/images/kylie.jpg"),
+  },
+  {
+    id: "4",
+    name: "Kendall",
+    image: require("../../assets/images/kendall.jpg"),
+  },
+  {
+    id: "5",
+    name: "Kourtney",
+    image: require("../../assets/images/kourtney.jpg"),
+  },
+];
 
 export default function HomeScreen() {
+  const router = useRouter();
+  const { width } = useWindowDimensions();
+
+  const [liked, setLiked] = useState(false);
+  const [saved, setSaved] = useState(false);
+
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.logo}>Instagram</Text>
+      <ScrollView
+        style={styles.mainScroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={true}
+        nestedScrollEnabled={true}
+        keyboardShouldPersistTaps="handled"
+        bounces={true}
+      >
+        {/* Instagram Header */}
+        <View style={styles.header}>
+          <Text style={styles.logo}>Instagram</Text>
 
-        <View style={styles.headerIcons}>
-          <Ionicons name="heart-outline" size={28} color="black" />
-          <Ionicons name="paper-plane-outline" size={28} color="black" />
+          <View style={styles.headerIcons}>
+            <TouchableOpacity
+              onPress={() => router.push("/(tabs)/screen3")}
+            >
+              <Ionicons
+                name="heart-outline"
+                size={29}
+                color="#000"
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => router.push("/(tabs)/screen2")}
+            >
+              <Ionicons
+                name="paper-plane-outline"
+                size={29}
+                color="#000"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
         {/* Stories */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.stories}
-        >
-          <Story name="Kim" />
-          <Story name="Khloé" />
-          <Story name="Kylie" />
-          <Story name="Kendall" />
-          <Story name="Kris" />
-        </ScrollView>
+        <View style={styles.storiesSection}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.storiesContainer}
+          >
+            {stories.map((story) => (
+              <TouchableOpacity
+                key={story.id}
+                style={styles.storyItem}
+                onPress={() =>
+                  Alert.alert(
+                    story.name,
+                    `${story.name}'s story`
+                  )
+                }
+              >
+                <View style={styles.storyRing}>
+                  <Image
+                    source={story.image}
+                    style={styles.storyImage}
+                    resizeMode="cover"
+                  />
+                </View>
 
-        <View style={styles.divider} />
-
-        {/* POST 1 */}
-        <Post
-          caption="Beautiful day ✨"
-          likes="2,481,932 likes"
-          comments="View all 18,432 comments"
-          postNumber="Post 1"
-        />
-
-        {/* POST 2 */}
-        <Post
-          caption="New memories 🤍"
-          likes="1,927,405 likes"
-          comments="View all 12,804 comments"
-          postNumber="Post 2"
-        />
-      </ScrollView>
-    </View>
-  );
-}
-
-/* Story */
-function Story({ name }: { name: string }) {
-  return (
-    <View style={styles.story}>
-      <View style={styles.storyBorder}>
-        <View style={styles.storyImage}>
-          <Text style={styles.storyLetter}>K</Text>
-        </View>
-      </View>
-
-      <Text style={styles.storyName}>{name}</Text>
-    </View>
-  );
-}
-
-/* Reusable Post */
-function Post({
-  caption,
-  likes,
-  comments,
-  postNumber,
-}: {
-  caption: string;
-  likes: string;
-  comments: string;
-  postNumber: string;
-}) {
-  return (
-    <View style={styles.post}>
-      {/* Post Header */}
-      <View style={styles.postHeader}>
-        <View style={styles.profileCircle}>
-          <Text style={styles.profileLetter}>K</Text>
+                <Text style={styles.storyName}>
+                  {story.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
         </View>
 
-        <View style={styles.postUser}>
-          <View style={styles.usernameRow}>
-            <Text style={styles.username}>kimkardashian</Text>
-
-            <Ionicons
-              name="checkmark-circle"
-              size={16}
-              color="#3897f0"
-              style={styles.verified}
+        {/* One Post */}
+        <View style={styles.postContainer}>
+          <View style={styles.postHeader}>
+            <Image
+              source={require("../../assets/images/kim.jpg")}
+              style={styles.profileImage}
             />
+
+            <View style={styles.userInfo}>
+              <View style={styles.usernameRow}>
+                <Text style={styles.username}>
+                  kimkardashian
+                </Text>
+
+                <Ionicons
+                  name="checkmark-circle"
+                  size={19}
+                  color="#3897f0"
+                />
+              </View>
+
+              <Text style={styles.fullName}>
+                Kim Kardashian
+              </Text>
+            </View>
+
+            <TouchableOpacity
+              onPress={() =>
+                Alert.alert("Post Options", "Options opened")
+              }
+            >
+              <Ionicons
+                name="ellipsis-horizontal"
+                size={28}
+                color="#000"
+              />
+            </TouchableOpacity>
           </View>
 
-          <Text style={styles.location}>Kim Kardashian</Text>
-        </View>
+          {/* Post Image */}
+          <TouchableOpacity
+            activeOpacity={0.95}
+            onPress={() => router.push("/details")}
+          >
+            <Image
+              source={require("../../assets/images/post1.jpg")}
+              style={{
+                width: "100%",
+                height: Math.min(width * 1.1, 650),
+                backgroundColor: "#f1f1f1",
+              }}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
 
-        <Ionicons
-          name="ellipsis-horizontal"
-          size={24}
-          color="black"
-        />
-      </View>
+          {/* Actions */}
+          <View style={styles.postActions}>
+            <View style={styles.leftActions}>
+              <TouchableOpacity
+                onPress={() => setLiked(!liked)}
+              >
+                <Ionicons
+                  name={liked ? "heart" : "heart-outline"}
+                  size={30}
+                  color={liked ? "#ff3040" : "#000"}
+                />
+              </TouchableOpacity>
 
-      {/* Post Image */}
-      <Pressable
-        style={styles.postImage}
-        onPress={() => router.push('/details')}
-      >
-        <Ionicons
-          name="image-outline"
-          size={80}
-          color="#888"
-        />
+              <TouchableOpacity
+                onPress={() =>
+                  Alert.alert("Comments", "Comments opened")
+                }
+              >
+                <Ionicons
+                  name="chatbubble-outline"
+                  size={29}
+                  color="#000"
+                />
+              </TouchableOpacity>
 
-        <Text style={styles.photoText}>
-          Kim Kardashian {postNumber}
-        </Text>
+              <TouchableOpacity
+                onPress={() => router.push("/(tabs)/screen2")}
+              >
+                <Ionicons
+                  name="paper-plane-outline"
+                  size={29}
+                  color="#000"
+                />
+              </TouchableOpacity>
+            </View>
 
-        <Text style={styles.tapText}>
-          Tap to view details
-        </Text>
-      </Pressable>
+            <TouchableOpacity
+              onPress={() => setSaved(!saved)}
+            >
+              <Ionicons
+                name={saved ? "bookmark" : "bookmark-outline"}
+                size={29}
+                color="#000"
+              />
+            </TouchableOpacity>
+          </View>
 
-      {/* Buttons */}
-      <View style={styles.actions}>
-        <View style={styles.leftActions}>
-          <Ionicons name="heart-outline" size={29} color="black" />
-          <Ionicons name="chatbubble-outline" size={27} color="black" />
-          <Ionicons name="paper-plane-outline" size={27} color="black" />
-        </View>
-
-        <Ionicons name="bookmark-outline" size={28} color="black" />
-      </View>
-
-      {/* Post Text */}
-      <View style={styles.postText}>
-        <Text style={styles.likes}>{likes}</Text>
-
-        <Text style={styles.caption}>
-          <Text style={styles.username}>
-            kimkardashian{' '}
+          {/* Likes */}
+          <Text style={styles.likes}>
+            {(125000 + (liked ? 1 : 0)).toLocaleString()} likes
           </Text>
 
-          {caption}
-        </Text>
+          {/* Caption */}
+          <View style={styles.captionContainer}>
+            <Text style={styles.caption}>
+              <Text style={styles.captionUsername}>
+                kimkardashian{" "}
+              </Text>
+              A beautiful day 🤍
+            </Text>
+          </View>
 
-        <Text style={styles.comments}>
-          {comments}
-        </Text>
+          <TouchableOpacity
+            onPress={() =>
+              Alert.alert("Comments", "View comments")
+            }
+          >
+            <Text style={styles.commentsText}>
+              View all comments
+            </Text>
+          </TouchableOpacity>
 
-        <Text style={styles.time}>
-          2 HOURS AGO
-        </Text>
-      </View>
-
-      <View style={styles.postDivider} />
+          <Text style={styles.postTime}>
+            2 HOURS AGO
+          </Text>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -174,183 +258,171 @@ function Post({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    minHeight: 0,
+    backgroundColor: "#fff",
+  },
+
+  mainScroll: {
+    flex: 1,
+    minHeight: 0,
+  },
+
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 80,
   },
 
   header: {
-    height: 64,
+    minHeight: 85,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderBottomColor: '#eeeeee',
+    borderBottomColor: "#eee",
   },
 
   logo: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 34,
+    fontWeight: "bold",
+    color: "#000",
   },
 
   headerIcons: {
-    flexDirection: 'row',
-    gap: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 24,
   },
 
-  stories: {
-    paddingVertical: 15,
-    paddingHorizontal: 10,
+  storiesSection: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+    paddingVertical: 20,
   },
 
-  story: {
-    alignItems: 'center',
-    marginHorizontal: 8,
+  storiesContainer: {
+    paddingHorizontal: 15,
+    gap: 16,
   },
 
-  storyBorder: {
-    width: 74,
-    height: 74,
-    borderRadius: 37,
+  storyItem: {
+    width: 85,
+    alignItems: "center",
+  },
+
+  storyRing: {
+    width: 83,
+    height: 83,
+    borderRadius: 42,
     borderWidth: 3,
-    borderColor: '#e1306c',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderColor: "#e93075",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 3,
   },
 
   storyImage: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: '#eeeeee',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  storyLetter: {
-    fontSize: 23,
-    fontWeight: 'bold',
-    color: '#555',
+    width: 70,
+    height: 70,
+    borderRadius: 35,
   },
 
   storyName: {
-    marginTop: 6,
-    fontSize: 12,
+    marginTop: 7,
+    fontSize: 13,
+    color: "#111",
+    textAlign: "center",
   },
 
-  divider: {
-    height: 1,
-    backgroundColor: '#eeeeee',
-  },
-
-  post: {
-    backgroundColor: '#fff',
+  postContainer: {
+    backgroundColor: "#fff",
+    paddingBottom: 30,
   },
 
   postHeader: {
-    height: 70,
-    paddingHorizontal: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
+    minHeight: 70,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 15,
   },
 
-  profileCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: '#dddddd',
-    justifyContent: 'center',
-    alignItems: 'center',
+  profileImage: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    marginRight: 12,
   },
 
-  profileLetter: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-
-  postUser: {
+  userInfo: {
     flex: 1,
-    marginLeft: 11,
   },
 
   usernameRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
   },
 
   username: {
-    fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#000",
   },
 
-  verified: {
-    marginLeft: 4,
+  fullName: {
+    fontSize: 13,
+    color: "#333",
+    marginTop: 3,
   },
 
-  location: {
-    fontSize: 12,
-    marginTop: 2,
-  },
-
-  postImage: {
-    width: '100%',
-    height: 450,
-    backgroundColor: '#eeeeee',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  photoText: {
-    color: '#777',
-    fontSize: 16,
-    marginTop: 10,
-  },
-
-  tapText: {
-    color: '#999',
-    fontSize: 12,
-    marginTop: 5,
-  },
-
-  actions: {
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  postActions: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 15,
+    paddingTop: 13,
   },
 
   leftActions: {
-    flexDirection: 'row',
-    gap: 17,
-  },
-
-  postText: {
-    paddingHorizontal: 14,
-    paddingBottom: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 18,
   },
 
   likes: {
-    fontWeight: 'bold',
     fontSize: 14,
-    marginBottom: 7,
+    fontWeight: "bold",
+    color: "#000",
+    marginTop: 12,
+    marginHorizontal: 15,
+  },
+
+  captionContainer: {
+    marginTop: 8,
+    marginHorizontal: 15,
   },
 
   caption: {
     fontSize: 14,
+    color: "#111",
+    lineHeight: 21,
   },
 
-  comments: {
-    color: '#777',
-    marginTop: 7,
+  captionUsername: {
+    fontWeight: "bold",
   },
 
-  time: {
-    color: '#999',
-    fontSize: 10,
-    marginTop: 8,
+  commentsText: {
+    marginTop: 9,
+    marginHorizontal: 15,
+    color: "#888",
+    fontSize: 14,
   },
 
-  postDivider: {
-    height: 6,
-    backgroundColor: '#f5f5f5',
+  postTime: {
+    marginTop: 12,
+    marginHorizontal: 15,
+    fontSize: 11,
+    color: "#999",
   },
 });

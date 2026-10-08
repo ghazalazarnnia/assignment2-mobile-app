@@ -1,5 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { useRouter } from "expo-router";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 type SettingRowProps = {
   icon: keyof typeof Ionicons.glyphMap;
@@ -17,28 +25,50 @@ function SettingRow({ icon, title, value }: SettingRowProps) {
       <View style={styles.rowRight}>
         {value && <Text style={styles.rowValue}>{value}</Text>}
 
-        <Ionicons name="chevron-forward" size={24} color="#9ca3af" />
+        <Ionicons
+          name="chevron-forward"
+          size={24}
+          color="#9ca3af"
+        />
       </View>
     </View>
   );
 }
 
 export default function SettingsScreen() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+        
         {/* Header */}
         <View style={styles.header}>
-          <Ionicons name="chevron-back" size={32} color="#fff" />
+          <Pressable
+            onPress={() => router.back()}
+            hitSlop={15}
+          >
+            <Ionicons
+              name="chevron-back"
+              size={32}
+              color="#fff"
+            />
+          </Pressable>
 
-          <Text style={styles.headerTitle}>Settings and activity</Text>
+          <Text style={styles.headerTitle}>
+            Settings and activity
+          </Text>
 
           <View style={{ width: 32 }} />
         </View>
 
         {/* Search */}
         <View style={styles.searchContainer}>
-          <Ionicons name="search" size={25} color="#9ca3af" />
+          <Ionicons
+            name="search"
+            size={25}
+            color="#9ca3af"
+          />
 
           <TextInput
             style={styles.searchInput}
@@ -50,28 +80,45 @@ export default function SettingsScreen() {
         {/* Your Account */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Your account</Text>
+            <Text style={styles.sectionTitle}>
+              Your account
+            </Text>
 
-            <Text style={styles.metaText}>∞ Meta</Text>
+            <Text style={styles.metaText}>
+              ∞ Meta
+            </Text>
           </View>
 
           <View style={styles.accountRow}>
-            <Ionicons name="person-circle-outline" size={36} color="#fff" />
+            <Ionicons
+              name="person-circle-outline"
+              size={36}
+              color="#fff"
+            />
 
             <View style={styles.accountText}>
-              <Text style={styles.accountTitle}>Accounts Center</Text>
+              <Text style={styles.accountTitle}>
+                Accounts Center
+              </Text>
 
               <Text style={styles.accountSubtitle}>
                 Password, security, personal details, ad preferences
               </Text>
             </View>
 
-            <Ionicons name="chevron-forward" size={25} color="#9ca3af" />
+            <Ionicons
+              name="chevron-forward"
+              size={25}
+              color="#9ca3af"
+            />
           </View>
 
           <Text style={styles.description}>
             Manage your connected experiences and account settings across Meta
-            technologies. <Text style={styles.learnMore}>Learn more</Text>
+            technologies.{" "}
+            <Text style={styles.learnMore}>
+              Learn more
+            </Text>
           </Text>
         </View>
 
@@ -79,17 +126,34 @@ export default function SettingsScreen() {
 
         {/* How you use Instagram */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>How you use Instagram</Text>
+          <Text style={styles.sectionTitle}>
+            How you use Instagram
+          </Text>
 
-          <SettingRow icon="bookmark-outline" title="Saved" />
+          <SettingRow
+            icon="bookmark-outline"
+            title="Saved"
+          />
 
-          <SettingRow icon="time-outline" title="Archive" />
+          <SettingRow
+            icon="time-outline"
+            title="Archive"
+          />
 
-          <SettingRow icon="pulse-outline" title="Your activity" />
+          <SettingRow
+            icon="pulse-outline"
+            title="Your activity"
+          />
 
-          <SettingRow icon="notifications-outline" title="Notifications" />
+          <SettingRow
+            icon="notifications-outline"
+            title="Notifications"
+          />
 
-          <SettingRow icon="time-outline" title="Time management" />
+          <SettingRow
+            icon="time-outline"
+            title="Time management"
+          />
 
           <SettingRow
             icon="tablet-portrait-outline"
@@ -101,7 +165,9 @@ export default function SettingsScreen() {
 
         {/* Who can see your content */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Who can see your content</Text>
+          <Text style={styles.sectionTitle}>
+            Who can see your content
+          </Text>
 
           <SettingRow
             icon="lock-closed-outline"
@@ -109,9 +175,16 @@ export default function SettingsScreen() {
             value="Public"
           />
 
-          <SettingRow icon="star-outline" title="Close Friends" value="0" />
+          <SettingRow
+            icon="star-outline"
+            title="Close Friends"
+            value="0"
+          />
 
-          <SettingRow icon="grid-outline" title="Crossposting" />
+          <SettingRow
+            icon="grid-outline"
+            title="Crossposting"
+          />
         </View>
       </ScrollView>
     </View>
