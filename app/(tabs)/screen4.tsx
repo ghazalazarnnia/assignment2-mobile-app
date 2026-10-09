@@ -1,3 +1,4 @@
+
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import {
@@ -9,6 +10,16 @@ import {
   View,
 } from "react-native";
 
+const COLORS = {
+  background: "#090A0D",
+  surface: "#24282E",
+  divider: "#26282E",
+  text: "#F5F5F7",
+  muted: "#A6ADB8",
+  inactive: "#9CA3AF",
+  blue: "#7DA2FF",
+};
+
 type SettingRowProps = {
   icon: keyof typeof Ionicons.glyphMap;
   title: string;
@@ -18,17 +29,23 @@ type SettingRowProps = {
 function SettingRow({ icon, title, value }: SettingRowProps) {
   return (
     <View style={styles.row}>
-      <Ionicons name={icon} size={28} color="#f5f5f5" />
+      <Ionicons
+        name={icon}
+        size={28}
+        color={COLORS.text}
+      />
 
       <Text style={styles.rowText}>{title}</Text>
 
       <View style={styles.rowRight}>
-        {value && <Text style={styles.rowValue}>{value}</Text>}
+        {value && (
+          <Text style={styles.rowValue}>{value}</Text>
+        )}
 
         <Ionicons
           name="chevron-forward"
           size={24}
-          color="#9ca3af"
+          color={COLORS.inactive}
         />
       </View>
     </View>
@@ -41,7 +58,7 @@ export default function SettingsScreen() {
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        
+
         {/* Header */}
         <View style={styles.header}>
           <Pressable
@@ -51,7 +68,7 @@ export default function SettingsScreen() {
             <Ionicons
               name="chevron-back"
               size={32}
-              color="#fff"
+              color={COLORS.text}
             />
           </Pressable>
 
@@ -67,13 +84,13 @@ export default function SettingsScreen() {
           <Ionicons
             name="search"
             size={25}
-            color="#9ca3af"
+            color={COLORS.inactive}
           />
 
           <TextInput
             style={styles.searchInput}
             placeholder="Search"
-            placeholderTextColor="#9ca3af"
+            placeholderTextColor={COLORS.inactive}
           />
         </View>
 
@@ -93,7 +110,7 @@ export default function SettingsScreen() {
             <Ionicons
               name="person-circle-outline"
               size={36}
-              color="#fff"
+              color={COLORS.text}
             />
 
             <View style={styles.accountText}>
@@ -109,13 +126,13 @@ export default function SettingsScreen() {
             <Ionicons
               name="chevron-forward"
               size={25}
-              color="#9ca3af"
+              color={COLORS.inactive}
             />
           </View>
 
           <Text style={styles.description}>
-            Manage your connected experiences and account settings across Meta
-            technologies.{" "}
+            Manage your connected experiences and account settings
+            across Meta technologies.{" "}
             <Text style={styles.learnMore}>
               Learn more
             </Text>
@@ -194,7 +211,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0c1014",
+    backgroundColor: COLORS.background,
   },
 
   header: {
@@ -207,7 +224,7 @@ const styles = StyleSheet.create({
   },
 
   headerTitle: {
-    color: "#fff",
+    color: COLORS.text,
     fontSize: 22,
     fontWeight: "700",
   },
@@ -217,7 +234,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     height: 50,
     borderRadius: 14,
-    backgroundColor: "#24282e",
+    backgroundColor: COLORS.surface,
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 14,
@@ -225,7 +242,7 @@ const styles = StyleSheet.create({
 
   searchInput: {
     flex: 1,
-    color: "#fff",
+    color: COLORS.text,
     fontSize: 20,
     marginLeft: 10,
   },
@@ -243,14 +260,14 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    color: "#a6adb8",
+    color: COLORS.muted,
     fontSize: 17,
     fontWeight: "700",
     marginBottom: 18,
   },
 
   metaText: {
-    color: "#fff",
+    color: COLORS.text,
     fontSize: 20,
   },
 
@@ -265,31 +282,31 @@ const styles = StyleSheet.create({
   },
 
   accountTitle: {
-    color: "#fff",
+    color: COLORS.text,
     fontSize: 21,
   },
 
   accountSubtitle: {
-    color: "#9ca3af",
+    color: COLORS.inactive,
     fontSize: 16,
     lineHeight: 22,
     marginTop: 2,
   },
 
   description: {
-    color: "#9ca3af",
+    color: COLORS.inactive,
     fontSize: 15,
     lineHeight: 21,
     marginTop: 24,
   },
 
   learnMore: {
-    color: "#7da2ff",
+    color: COLORS.blue,
   },
 
   divider: {
     height: 10,
-    backgroundColor: "#252a30",
+    backgroundColor: COLORS.divider,
   },
 
   row: {
@@ -300,7 +317,7 @@ const styles = StyleSheet.create({
 
   rowText: {
     flex: 1,
-    color: "#fff",
+    color: COLORS.text,
     fontSize: 19,
     marginLeft: 18,
   },
@@ -311,7 +328,7 @@ const styles = StyleSheet.create({
   },
 
   rowValue: {
-    color: "#a6adb8",
+    color: COLORS.muted,
     fontSize: 17,
     marginRight: 8,
   },

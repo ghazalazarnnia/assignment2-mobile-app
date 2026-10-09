@@ -1,5 +1,14 @@
-import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet, Text, View } from "react-native";
+
+const COLORS = {
+  background: "#090A0D",
+  surface: "#24272C",
+  border: "#26282E",
+  text: "#F5F5F7",
+  muted: "#85878E",
+};
 
 export default function DetailsScreen() {
   return (
@@ -16,20 +25,36 @@ export default function DetailsScreen() {
       </View>
 
       <View style={styles.image}>
-        <Ionicons name="image-outline" size={80} color="#888" />
+        <Ionicons
+          name="image-outline"
+          size={80}
+          color={COLORS.muted}
+        />
         <Text style={styles.imageText}>Post Details</Text>
       </View>
 
       <View style={styles.actions}>
-        <Ionicons name="heart-outline" size={28} />
-        <Ionicons name="chatbubble-outline" size={27} />
-        <Ionicons name="paper-plane-outline" size={27} />
+        <Ionicons
+          name="heart-outline"
+          size={28}
+          color={COLORS.text}
+        />
+        <Ionicons
+          name="chatbubble-outline"
+          size={27}
+          color={COLORS.text}
+        />
+        <Ionicons
+          name="paper-plane-outline"
+          size={27}
+          color={COLORS.text}
+        />
       </View>
 
       <View style={styles.textArea}>
         <Text style={styles.likes}>1,245 likes</Text>
 
-        <Text>
+        <Text style={styles.caption}>
           <Text style={styles.username}>sarah </Text>
           Beautiful day in Calgary!
         </Text>
@@ -41,12 +66,12 @@ export default function DetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.background,
   },
 
   userRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 15,
   },
 
@@ -54,38 +79,41 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: '#ddd',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: COLORS.surface,
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 10,
   },
 
   profileText: {
-    fontWeight: 'bold',
+    color: COLORS.text,
+    fontWeight: "bold",
   },
 
   username: {
-    fontWeight: 'bold',
+    color: COLORS.text,
+    fontWeight: "bold",
   },
 
   location: {
+    color: COLORS.muted,
     fontSize: 12,
   },
 
   image: {
     height: 450,
-    backgroundColor: '#eee',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: COLORS.surface,
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   imageText: {
-    color: '#777',
+    color: COLORS.muted,
     marginTop: 10,
   },
 
   actions: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 16,
     padding: 15,
   },
@@ -95,7 +123,12 @@ const styles = StyleSheet.create({
   },
 
   likes: {
-    fontWeight: 'bold',
+    color: COLORS.text,
+    fontWeight: "bold",
     marginBottom: 7,
+  },
+
+  caption: {
+    color: COLORS.text,
   },
 });
