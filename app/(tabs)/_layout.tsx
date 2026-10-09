@@ -1,3 +1,4 @@
+
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
@@ -6,11 +7,14 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#f5f5f7",
-        tabBarInactiveTintColor: "#85878e",
+        sceneStyle: {
+          backgroundColor: "#090A0D",
+        },
+        tabBarActiveTintColor: "#F5F5F7",
+        tabBarInactiveTintColor: "#85878E",
         tabBarStyle: {
-          backgroundColor: "#090a0d",
-          borderTopColor: "#26282e",
+          backgroundColor: "#090A0D",
+          borderTopColor: "#26282E",
         },
       }}
     >
@@ -19,7 +23,11 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+            <Ionicons
+              name="home-outline"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -29,7 +37,11 @@ export default function TabLayout() {
         options={{
           title: "Messages",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="paper-plane" size={size} color={color} />
+            <Ionicons
+              name="paper-plane"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -39,7 +51,11 @@ export default function TabLayout() {
         options={{
           title: "Activity",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="heart-outline" size={size} color={color} />
+            <Ionicons
+              name="heart-outline"
+              size={size}
+              color={color}
+            />
           ),
         }}
       />
@@ -49,8 +65,15 @@ export default function TabLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
+            <Ionicons
+              name="person-outline"
+              size={size}
+              color={color}
+            />
           ),
+          tabBarStyle: {
+            display: "none",
+          },
         }}
       />
     </Tabs>
